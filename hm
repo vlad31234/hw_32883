@@ -1,0 +1,123 @@
+import java.util.ArrayList;
+
+class Task1 {
+    public static int[] filterEvenIndexOddValue(int[] array) {
+        ArrayList<Integer> result = new ArrayList<>();
+
+        for (int i = 0; i < array.length; i += 2) {
+            if (array[i] % 2 != 0) {
+                result.add(array[i]);
+            }
+        }
+
+        int[] filteredArray = new int[result.size()];
+        for (int i = 0; i < result.size(); i++) {
+            filteredArray[i] = result.get(i);
+        }
+
+        return filteredArray;
+    }
+
+    public static void run() {
+        int[] arr1 = {1, 2, 3, 4, 5, 6};
+        int[] arr2 = {2, 3, 4, 5, 6, 7};
+        int[] arr3 = {7, 8, 9, 10, 11};
+
+        printResult("arr1", filterEvenIndexOddValue(arr1));
+        printResult("arr2", filterEvenIndexOddValue(arr2));
+        printResult("arr3", filterEvenIndexOddValue(arr3));
+    }
+
+    private static void printResult(String name, int[] result) {
+        System.out.print(name + ": ");
+        for (int num : result) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+    }
+}
+
+// Task2: Find the index of a dominant element
+class Task2 {
+    public static int findDominant(int[] array) {
+        int n = array.length;
+        int threshold = n / 2;
+
+        for (int i = 0; i < n; i++) {
+            int count = 1;
+
+            for (int j = i + 1; j < n; j++) {
+                if (array[i] == array[j]) {
+                    count++;
+                }
+            }
+
+            if (count > threshold) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    public static void run() {
+        int[] array1 = {3, 3, 3, 2, 2};
+        int[] array2 = {1, 2, 3, 4};
+        int[] array3 = {5, 5, 5, 5, 1};
+
+        System.out.println("Dominant index in array1: " + findDominant(array1));
+        System.out.println("Dominant index in array2: " + findDominant(array2));
+        System.out.println("Dominant index in array3: " + findDominant(array3));
+    }
+}
+
+// Task3: Rotate array by given number of positions
+class Task3 {
+    public static int[] rotateArray(int[] array, int positions) {
+        if (array.length == 0) return new int[0];
+
+        positions = positions % array.length;
+        int[] result = new int[array.length];
+
+        for (int i = 0; i < positions; i++) {
+            result[i] = array[array.length - positions + i];
+        }
+
+        for (int i = 0; i < array.length - positions; i++) {
+            result[positions + i] = array[i];
+        }
+
+        return result;
+    }
+
+    public static void run() {
+        int[] arr1 = {1, 2, 3, 4, 5};
+        int[] arr2 = {1, 2, 3};
+
+        printRotated("arr1", arr1, 2);
+        printRotated("arr2", arr2, 3);
+    }
+
+    private static void printRotated(String name, int[] array, int positions) {
+        int[] result = rotateArray(array, positions);
+        System.out.print(name + " rotated by " + positions + ": ");
+        for (int num : result) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+    }
+}
+
+// Main class to run all tasks
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("=== Task 1 ===");
+        Task1.run();
+
+        System.out.println("\n=== Task 2 ===");
+        Task2.run();
+
+        System.out.println("\n=== Task 3 ===");
+        Task3.run();
+    }
+}
